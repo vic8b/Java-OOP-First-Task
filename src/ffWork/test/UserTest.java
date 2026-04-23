@@ -1,8 +1,8 @@
 package ffWork.test;
 
-import ffWork.domain.CompanyUser;
-import ffWork.domain.IndividualUser;
-import ffWork.domain.User;
+import ffWork.domain.user.CompanyUser;
+import ffWork.domain.user.IndividualUser;
+import ffWork.domain.user.User;
 
 class UserTest {
     public static void main(String[] args) {
