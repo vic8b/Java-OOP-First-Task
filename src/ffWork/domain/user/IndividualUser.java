@@ -1,4 +1,4 @@
-package ffWork.domain;
+package ffWork.domain.user;
 
 public class IndividualUser extends User {
     private int studentId;

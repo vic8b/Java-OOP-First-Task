@@ -1,4 +1,4 @@
-package ffWork.domain;
+package ffWork.domain.user;
 
 public class CompanyUser extends User {
     private String companyName;

@@ -1,4 +1,4 @@
-package ffWork.domain;
+package ffWork.domain.user;
 
 public class User {
     private String email;
