@@ -41,6 +41,18 @@ public final class FFDateTime implements Comparable<FFDateTime> {
         return other.toEpochMinutes() - this.toEpochMinutes();
     }
 
+    public int getYear() {
+        return dateTime.getYear();
+    }
+
+    public int getMonth() {
+        return dateTime.getMonthValue();
+    }
+
+    public int getDay() {
+        return dateTime.getDayOfMonth();
+    }
+
     @Override
     public int compareTo(FFDateTime other) {
         return Integer.compare(this.toEpochMinutes(), other.toEpochMinutes());

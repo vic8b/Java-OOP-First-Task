@@ -56,4 +56,16 @@ public class Booking {
     public int durationMinutes() {
         return start.minutesUntil(end);
     }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public FFDateTime getStart() {
+        return start;
+    }
+
+    public FFDateTime getEnd() {
+        return end;
+    }
 }

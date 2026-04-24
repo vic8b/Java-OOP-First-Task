@@ -19,6 +19,10 @@ public final class Money implements Comparable<Money> {
         return new Money(new BigDecimal(amountAsString));
     }
 
+    public static Money of(BigDecimal amount) {
+        return new Money(amount);
+    }
+
     public Money add(Money other) {
         return new Money(this.amount.add(other.amount));
     }
@@ -37,6 +41,10 @@ public final class Money implements Comparable<Money> {
 
     public Money multiply(double multiplier) {
         return new Money(amount.multiply(BigDecimal.valueOf(multiplier)));
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
     }
 
     @Override
