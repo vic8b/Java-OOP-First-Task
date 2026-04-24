@@ -2,7 +2,9 @@ package ffWork.domain.resource;
 
 import ffWork.money.Money;
 
-public class Desk extends Resource{
+public class Desk extends Resource {
+    private static final Money HOT_DESK_BASE_RATE = Money.of("50");
+    private static final Money FIXED_DESK_BASE_RATE = Money.of("75");
     private final DeskType deskType;
 
     public Desk(String name, Money customHourlyRate, DeskType type) {
@@ -17,8 +19,8 @@ public class Desk extends Resource{
     @Override
     protected Money baseRatePerHour() {
         return switch (this.deskType) {
-            case HOT -> Money.of("50");
-            case FIXED -> Money.of("75");
+            case HOT -> HOT_DESK_BASE_RATE;
+            case FIXED -> FIXED_DESK_BASE_RATE;
         };
     }
 
