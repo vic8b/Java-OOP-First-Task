@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public final class FFDateTime implements Comparable<FFDateTime> {
-    private final LocalDateTime dateTime;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private final LocalDateTime dateTime;
 
     private FFDateTime(int year, int month, int day, int hour, int minute) {
         this.dateTime = LocalDateTime.of(year, month, day, hour, minute);

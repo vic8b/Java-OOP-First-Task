@@ -3,6 +3,7 @@ package ffWork.domain.resource;
 import ffWork.money.Money;
 
 public class Device extends Resource {
+    private static final Money DEVICE_BASE_RATE = Money.of("60");
     private final int quantity;
 
     public Device(String name, Money customHourlyRate, int quantity) {
@@ -20,7 +21,7 @@ public class Device extends Resource {
 
     @Override
     protected Money baseRatePerHour() {
-        return Money.of("60");
+        return DEVICE_BASE_RATE;
     }
 
     @Override
