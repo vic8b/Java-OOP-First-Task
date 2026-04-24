@@ -5,6 +5,7 @@ import ffWork.money.Money;
 import java.util.Set;
 
 public class Room extends Resource {
+    private static final Money ROOM_BASE_RATE = Money.of("100");
     private final int seats;
     private final Set<String> equipment;
 
