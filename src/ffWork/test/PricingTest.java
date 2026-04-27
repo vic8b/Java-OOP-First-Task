@@ -56,7 +56,6 @@ class PricingTest {
                 room,
                 FFDateTime.parse(startText),
                 FFDateTime.parse(endText),
-                BookingStatus.PENDING,
                 Money.of("0")
         );
     }
@@ -71,7 +70,6 @@ class PricingTest {
                 desk,
                 FFDateTime.parse(startText),
                 FFDateTime.parse(endText),
-                BookingStatus.PENDING,
                 Money.of("0")
         );
     }
@@ -86,7 +84,6 @@ class PricingTest {
                 device,
                 FFDateTime.parse(startText),
                 FFDateTime.parse(endText),
-                BookingStatus.PENDING,
                 Money.of("0")
         );
     }

@@ -34,7 +34,6 @@ class BookingTest {
                 room,
                 start,
                 end,
-                BookingStatus.PENDING,
                 Money.of("300.00")
         );
     }
@@ -102,7 +101,6 @@ class BookingTest {
                     room,
                     start,
                     end,
-                    BookingStatus.PENDING,
                     Money.of("300.00")
             );
 
