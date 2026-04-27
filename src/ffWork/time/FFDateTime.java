@@ -53,6 +53,15 @@ public final class FFDateTime implements Comparable<FFDateTime> {
         return dateTime.getDayOfMonth();
     }
 
+    public static FFDateTime getCurrentDay() {
+        LocalDateTime nowDate = LocalDateTime.now();
+        return FFDateTime.of(nowDate.getYear(), nowDate.getMonthValue(), nowDate.getDayOfMonth(), nowDate.getHour(), nowDate.getMinute());
+    }
+
+    public String getDate() {
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    }
+
     @Override
     public int compareTo(FFDateTime other) {
         return Integer.compare(this.toEpochMinutes(), other.toEpochMinutes());

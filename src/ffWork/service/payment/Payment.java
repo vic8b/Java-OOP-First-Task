@@ -14,4 +14,10 @@ public abstract class Payment {
     }
 
     public abstract void capture();
+
+    public abstract void refund();
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
 }

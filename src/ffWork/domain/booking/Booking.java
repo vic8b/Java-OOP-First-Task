@@ -3,6 +3,7 @@ package ffWork.domain.booking;
 import ffWork.domain.resource.Resource;
 import ffWork.domain.user.User;
 import ffWork.money.Money;
+import ffWork.service.payment.Payment;
 import ffWork.time.FFDateTime;
 
 public class Booking {
@@ -13,15 +14,15 @@ public class Booking {
     private final FFDateTime end;
     private BookingStatus status;
     private Money calculatedPrice;
-//    private Payment payment; // to be added
+    private Payment payment;
 
-    public Booking(String id, User user, Resource resource, FFDateTime start, FFDateTime end, BookingStatus status, Money calculatedPrice) {
+    public Booking(String id, User user, Resource resource, FFDateTime start, FFDateTime end, Money calculatedPrice) {
         this.id = id;
         this.user = user;
         this.resource = resource;
         this.start = start;
         this.end = end;
-        this.status = status;
+        this.status = BookingStatus.PENDING;
         this.calculatedPrice = calculatedPrice;
 
         if (end.compareTo(start) <= 0) {
@@ -57,6 +58,14 @@ public class Booking {
         return start.minutesUntil(end);
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public Resource getResource() {
         return resource;
     }
@@ -67,5 +76,25 @@ public class Booking {
 
     public FFDateTime getEnd() {
         return end;
+    }
+
+    public BookingStatus getStatus() {
+        return status;
+    }
+
+    public void setCalculatedPrice(Money calculatedPrice) {
+        this.calculatedPrice = calculatedPrice;
+    }
+
+    public Money getCalculatedPrice() {
+        return calculatedPrice;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }

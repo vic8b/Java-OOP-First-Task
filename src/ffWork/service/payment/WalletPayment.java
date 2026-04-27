@@ -2,12 +2,9 @@ package ffWork.service.payment;
 
 import ffWork.money.Money;
 
-public class CardPayment extends Payment {
-    private final String last4Digits; //of the used card
-
-    public CardPayment(Money amount, String paymentId, String last4Digits) {
+public class WalletPayment extends Payment {
+    public WalletPayment(Money amount, String paymentId) {
         super(amount, paymentId);
-        this.last4Digits = last4Digits;
     }
 
     @Override

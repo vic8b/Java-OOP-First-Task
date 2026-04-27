@@ -19,7 +19,27 @@ public class Invoice {
         this.buyer = buyer;
         this.total = total;
         this.itemDescription = "Reservation for \"" + booking.getResource().describe()
-                + " (start: \"" + booking.getStart() + ", end: " + booking.getEnd() + ")";
+                + " (start: \"" + booking.getStart() + ", end: " + booking.getEnd() + ")\"";
         this.booking = booking;
+    }
+
+    public String getInvoiceInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Invoice number: ")
+                .append(invoiceNumber)
+                .append("\n")
+                .append("Issue date: ")
+                .append(issueDate)
+                .append("\n")
+                .append("Buyer: ")
+                .append(buyer.getDisplayName())
+                .append("\n")
+                .append("Total: ")
+                .append(total)
+                .append("\n")
+                .append("Item description: ")
+                .append(itemDescription)
+                .append("\n");
+        return sb.toString();
     }
 }
