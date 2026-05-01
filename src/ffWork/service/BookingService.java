@@ -21,7 +21,7 @@ public class BookingService {
     private final UserRepository userRepository;
     private final ResourceRepository resourceRepository;
     private final BookingRepository bookingRepository;
-    private final PricingPolicy pricing;
+    private PricingPolicy pricing;
     private int counter = 0;
 
     public BookingService(UserRepository userRepository, ResourceRepository resourceRepository, BookingRepository bookingRepository, PricingPolicy pricing) {
@@ -122,5 +122,9 @@ public class BookingService {
 
     private static boolean isOverlapping(FFDateTime start, FFDateTime end, Booking booking) {
         return start.toEpochMinutes() < (booking.getEnd().toEpochMinutes()) && booking.getStart().toEpochMinutes() < (end.toEpochMinutes());
+    }
+
+    public void setPricing(PricingPolicy pricing) {
+        this.pricing = pricing;
     }
 }

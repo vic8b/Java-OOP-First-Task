@@ -40,7 +40,17 @@ public class PaymentService {
 
         if (booking.getPayment() instanceof CardPayment cardPayment) {
             cardPayment.refund();
-        } else if (booking.getPayment() instanceof WalletPayment walletPayment) {
+        }
+    }
+
+    public void refund(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Booking does not exist"));
+
+        if (booking.getStatus() != BookingStatus.CANCELLED) {
+            throw new IllegalStateException("Cancel booking first");
+        }
+
+        if (booking.getPayment() instanceof WalletPayment walletPayment) {
             walletPayment.refund();
         }
     }

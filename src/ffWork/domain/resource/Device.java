@@ -28,4 +28,17 @@ public class Device extends Resource {
     public String describe() {
         return "Basic device to work with";
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Resource: ")
+                .append(getName())
+                .append(", rate: ")
+                .append(hourlyRate())
+                .append(", quantity: ")
+                .append(quantity);
+
+        return sb.toString();
+    }
 }

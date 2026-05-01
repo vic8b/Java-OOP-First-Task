@@ -33,4 +33,17 @@ public class Desk extends Resource {
     }
 
     public enum DeskType {HOT, FIXED}
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Resource: ")
+                .append(getName())
+                .append(", rate: ")
+                .append(hourlyRate())
+                .append(", type: ")
+                .append(deskType);
+
+        return sb.toString();
+    }
 }

@@ -25,14 +25,11 @@ class UserTest {
     static void testIndividualUser() {
         IndividualUser student = new IndividualUser(
                 "student@example.com",
-                "Alice",
-                12345
+                "Alice"
         );
 
         System.out.println("IndividualUser:");
         System.out.println(student);
-        System.out.println("Student ID: " + student.getStudentId());
-        System.out.println();
     }
 
     static void testCompanyUser() {
@@ -55,7 +52,7 @@ class UserTest {
 
         User[] users = {
                 new User("u1@mail.com", "User1"),
-                new IndividualUser("u2@mail.com", "User2", 111),
+                new IndividualUser("u2@mail.com", "User2"),
                 new CompanyUser("u3@mail.com", "User3", "Firm", "999-999")
         };
 

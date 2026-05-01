@@ -97,4 +97,33 @@ public class Booking {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Booking Data")
+                .append(System.lineSeparator())
+                .append("ID: ")
+                .append(id)
+                .append(", ")
+                .append(user)
+                .append(", resource: ")
+                .append(resource.getName())
+                .append(System.lineSeparator())
+                .append("Start: ")
+                .append(start)
+                .append(System.lineSeparator())
+                .append("End: ")
+                .append(end)
+                .append(System.lineSeparator())
+                .append("Status: ")
+                .append(status)
+                .append(", calculated price: ")
+                .append(calculatedPrice)
+                .append(", payment: ")
+                .append(payment);
+
+        return sb.toString();
+    }
 }

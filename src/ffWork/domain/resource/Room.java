@@ -36,4 +36,19 @@ public class Room extends Resource {
     public String describe() {
         return "Coworking private room";
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Resource: ")
+                .append(getName())
+                .append(", seats: ")
+                .append(seats)
+                .append(", rate: ")
+                .append(hourlyRate())
+                .append(", equipment: ")
+                .append(equipment);
+
+        return sb.toString();
+    }
 }

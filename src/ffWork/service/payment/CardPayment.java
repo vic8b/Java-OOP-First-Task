@@ -26,4 +26,9 @@ public class CardPayment extends Payment {
 
         status = PaymentStatus.REFUNDED;
     }
+
+    @Override
+    public String toString() {
+        return status.name();
+    }
 }
