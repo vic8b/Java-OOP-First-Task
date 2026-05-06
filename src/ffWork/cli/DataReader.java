@@ -1,10 +1,8 @@
 package ffWork.cli;
 
 import ffWork.domain.booking.Booking;
-import ffWork.domain.resource.Desk;
-import ffWork.domain.resource.Device;
-import ffWork.domain.resource.Resource;
-import ffWork.domain.resource.Room;
+import ffWork.domain.booking.BookingStatus;
+import ffWork.domain.resource.*;
 import ffWork.domain.user.CompanyUser;
 import ffWork.domain.user.IndividualUser;
 import ffWork.domain.user.User;
@@ -29,8 +27,7 @@ public class DataReader {
         while (true) {
             try {
                 printer.printLine("Enter option number: ");
-                int userChoice = sc.nextInt();
-                return userChoice;
+                return sc.nextInt();
             } catch (InputMismatchException | IllegalArgumentException e) {
                 System.err.println("Enter NUMBER");
             } finally {
@@ -174,6 +171,25 @@ public class DataReader {
         }
     }
 
+    public ResourceType chooseResourceType() {
+        printer.printLine("Available resources:");
+
+        for (ResourceType type : ResourceType.values()) {
+            printer.printLine(type.name());
+        }
+
+        while (true) {
+            printer.printLine("Enter resource type name:");
+            String stringFromUser = getStringFromUser().toUpperCase();
+
+            try {
+                return ResourceType.valueOf(stringFromUser);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid resource type name");
+            }
+        }
+    }
+
     public Booking chooseBooking(BookingRepository bookingRepository) {
         List<Booking> allBookings = bookingRepository.findAll();
 
@@ -219,5 +235,19 @@ public class DataReader {
                 printer.printLine("Incorrect choice");
             }
         }
+    }
+
+    public BookingStatus getBookingStatusFromUser() {
+        printer.printLine("Choose booking status:");
+        for (BookingStatus status : BookingStatus.values()) {
+            printer.printLine(String.valueOf(status));
+        }
+        try {
+            return BookingStatus.valueOf(getStringFromUser().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid status");
+        }
+
+        return null;
     }
 }

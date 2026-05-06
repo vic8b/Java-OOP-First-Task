@@ -183,5 +183,42 @@ public enum Option implements CliOption {
             return description;
         }
     }
+
+    public enum BookingsList implements CliOption {
+        LIST_OF_ALL_BOOKINGS(1, "List of all bookings"),
+        BOOKINGS_BY_EMAIL(2, "Bookings by email"),
+        BOOKINGS_BY_RESOURCE(3, "Bookings by resource"),
+        BOOKINGS_BY_STATUS(4, "Bookings by booking status"),
+        QUIT(0, "Quit");
+
+        private final int optionNumber;
+        private final String description;
+
+        BookingsList(int optionNumber, String description) {
+            this.optionNumber = optionNumber;
+            this.description = description;
+        }
+
+        public static Option.BookingsList fromNumber(int number) {
+            Option.BookingsList option = null;
+
+            for (Option.BookingsList optionValue : Option.BookingsList.values()) {
+                if (optionValue.optionNumber == number) {
+                    option = optionValue;
+                }
+            }
+            return option;
+        }
+
+        @Override
+        public int getOptionNumber() {
+            return optionNumber;
+        }
+
+        @Override
+        public String getDescription() {
+            return description;
+        }
+    }
 }
 

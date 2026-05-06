@@ -3,6 +3,7 @@ package ffWork.cli;
 import ffWork.domain.booking.Booking;
 import ffWork.domain.booking.BookingStatus;
 import ffWork.domain.resource.Resource;
+import ffWork.domain.resource.ResourceType;
 import ffWork.domain.user.User;
 import ffWork.pricing.PricingPolicy;
 import ffWork.pricing.StandardPricing;
@@ -60,7 +61,7 @@ public class Cli {
                 case BOOKINGS -> bookingsOptionsMenu();
                 case PRICING -> pricingOptionsMenu();
                 case LIST_OF_USERS -> printListOfUsers();
-                case LIST_OF_BOOKINGS -> printListOfBookings();
+                case LIST_OF_BOOKINGS -> bookingsListOptionsMenu();
                 case LIST_OF_RESOURCES -> printListOfResources();
                 case HELP -> printInfo();
                 case QUIT -> printer.printLine("End of program");
@@ -146,6 +147,36 @@ public class Cli {
                 case REFUND -> refundBooking();
             }
         } while (option != Option.Pricing.QUIT);
+    }
+
+    private void bookingsListOptionsMenu() {
+        Option.BookingsList option;
+
+        do {
+            printer.printOptions(Option.BookingsList.class);
+            option = Option.BookingsList.fromNumber(reader.getOptionIntFromUser());
+
+            if (option == null) {
+                printer.printLine("Invalid option");
+                continue;
+            }
+
+            switch (option) {
+                case LIST_OF_ALL_BOOKINGS -> printListOfBookings();
+                case BOOKINGS_BY_EMAIL -> {
+                    User user = reader.chooseUser(userRepository);
+                    printListOfBookingsByEmail(user);
+                }
+                case BOOKINGS_BY_RESOURCE -> {
+                    ResourceType resourceType = reader.chooseResourceType();
+                    printListOfBookingsByResource(resourceType.getaClass());
+                }
+                case BOOKINGS_BY_STATUS -> {
+                    BookingStatus bookingStatusFromUser = reader.getBookingStatusFromUser();
+                    printListOfBookingsByStatus(bookingStatusFromUser);
+                }
+            }
+        } while (option != Option.BookingsList.QUIT);
     }
 
     private void addIndividualUser() {
@@ -312,6 +343,18 @@ public class Cli {
 
     private void printListOfBookings() {
         printer.printBookings(bookingRepository);
+    }
+
+    private void printListOfBookingsByEmail(User user) {
+        printer.printBookingsByEmail(bookingRepository, user);
+    }
+
+    private void printListOfBookingsByResource(Class<? extends Resource> resourceType) {
+        printer.printBookingsByResource(resourceRepository, bookingRepository, resourceType);
+    }
+
+    private void printListOfBookingsByStatus(BookingStatus bookingStatus) {
+        printer.printBookingsByStatus(bookingRepository, bookingStatus);
     }
 
     private void printListOfResources() {

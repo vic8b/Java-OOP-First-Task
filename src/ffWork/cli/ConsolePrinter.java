@@ -1,12 +1,14 @@
 package ffWork.cli;
 
 import ffWork.domain.booking.Booking;
+import ffWork.domain.booking.BookingStatus;
 import ffWork.domain.resource.Resource;
 import ffWork.domain.user.User;
 import ffWork.repo.BookingRepository;
 import ffWork.repo.ResourceRepository;
 import ffWork.repo.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConsolePrinter {
@@ -39,6 +41,61 @@ public class ConsolePrinter {
 
         System.out.println(stringBuilder);
         stringBuilder.setLength(0);
+    }
+
+    public void printBookingsByEmail(BookingRepository bookingRepository, User user) {
+        List<Booking> listOfBookingByUser = bookingRepository.findByUser(user);
+
+        if (listOfBookingByUser.isEmpty()) {
+            System.out.println("No bookings found");
+        } else {
+            for (Booking booking : listOfBookingByUser) {
+                stringBuilder.append(booking)
+                        .append(System.lineSeparator());
+            }
+
+            System.out.println(stringBuilder);
+            stringBuilder.setLength(0);
+        }
+    }
+
+    public void printBookingsByResource(ResourceRepository resourceRepository, BookingRepository bookingRepository, Class<? extends Resource> resourceType) {
+        List<Resource> resources = resourceRepository.findByType(resourceType);
+        List<Booking> bookingsByResource = new ArrayList<>();
+
+        for (Resource resource : resources) {
+            bookingsByResource.addAll(bookingRepository.findByResource(resource));
+        }
+
+        if (bookingsByResource.isEmpty()) {
+            printLine("No bookings found");
+        } else {
+            printLine("Bookings for resource type: ");
+
+            for (Booking booking : bookingsByResource) {
+                stringBuilder.append(booking)
+                        .append(System.lineSeparator());
+            }
+
+            System.out.println(stringBuilder);
+            stringBuilder.setLength(0);
+        }
+    }
+
+    public void printBookingsByStatus(BookingRepository bookingRepository, BookingStatus status) {
+        List<Booking> bookingsByStatus = bookingRepository.findByStatus(status);
+
+        if (bookingsByStatus.isEmpty()) {
+            System.out.println("No bookings with status " + status + " exist");
+        } else {
+            for (Booking booking : bookingsByStatus) {
+                stringBuilder.append(booking)
+                        .append(System.lineSeparator());
+            }
+
+            System.out.println(stringBuilder);
+            stringBuilder.setLength(0);
+        }
     }
 
     public void printResources(ResourceRepository resourceRepository) {
