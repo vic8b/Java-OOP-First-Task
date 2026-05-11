@@ -13,13 +13,13 @@ import java.util.List;
 
 public class ConsolePrinter {
     //void methods to print (e.g. from collection)
-    private final StringBuilder stringBuilder = new StringBuilder();
 
     public void printLine(String text) {
         System.out.println(text);
     }
 
     public void printUsers(UserRepository userRepository) {
+        StringBuilder stringBuilder = new StringBuilder();
         List<User> allUsers = userRepository.findAll();
 
         for (User user : allUsers) {
@@ -32,6 +32,7 @@ public class ConsolePrinter {
     }
 
     public void printBookings(BookingRepository bookingRepository) {
+        StringBuilder stringBuilder = new StringBuilder();
         List<Booking> allBookings = bookingRepository.findAll();
 
         for (Booking booking : allBookings) {
@@ -44,6 +45,7 @@ public class ConsolePrinter {
     }
 
     public void printBookingsByEmail(BookingRepository bookingRepository, User user) {
+        StringBuilder stringBuilder = new StringBuilder();
         List<Booking> listOfBookingByUser = bookingRepository.findByUser(user);
 
         if (listOfBookingByUser.isEmpty()) {
@@ -60,6 +62,7 @@ public class ConsolePrinter {
     }
 
     public void printBookingsByResource(ResourceRepository resourceRepository, BookingRepository bookingRepository, Class<? extends Resource> resourceType) {
+        StringBuilder stringBuilder = new StringBuilder();
         List<Resource> resources = resourceRepository.findByType(resourceType);
         List<Booking> bookingsByResource = new ArrayList<>();
 
@@ -83,6 +86,7 @@ public class ConsolePrinter {
     }
 
     public void printBookingsByStatus(BookingRepository bookingRepository, BookingStatus status) {
+        StringBuilder stringBuilder = new StringBuilder();
         List<Booking> bookingsByStatus = bookingRepository.findByStatus(status);
 
         if (bookingsByStatus.isEmpty()) {
@@ -99,6 +103,7 @@ public class ConsolePrinter {
     }
 
     public void printResources(ResourceRepository resourceRepository) {
+        StringBuilder stringBuilder = new StringBuilder();
         List<Resource> allResources = resourceRepository.findAll();
 
         for (Resource resource : allResources) {
@@ -111,10 +116,10 @@ public class ConsolePrinter {
     }
 
     public <E extends Enum<E> & CliOption> void printOptions(Class<E> enumType) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (E option : enumType.getEnumConstants()) {
-                sb.append(option.getOptionNumber())
+                stringBuilder.append(option.getOptionNumber())
                         .append(" - ")
                         .append(option.name())
                         .append(" - ")
@@ -124,6 +129,6 @@ public class ConsolePrinter {
 
         }
 
-        System.out.println(sb);
+        System.out.println(stringBuilder);
     }
 }

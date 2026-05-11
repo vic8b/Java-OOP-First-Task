@@ -50,7 +50,7 @@ class PaymentBillingServiceTest {
         System.out.println("booking payment status: " + booking.getPayment().getStatus());
 
         try {
-            paymentService.refund(booking.getId(), "1234");
+            paymentService.refund(booking.getId());
         } catch (IllegalStateException e) {
             System.out.println("message > " + e.getMessage());
         }
@@ -59,7 +59,7 @@ class PaymentBillingServiceTest {
         System.out.println("Booking cancel");
         booking.cancel();
         System.out.println("Booking refund");
-        paymentService.refund("BK-20250915-0", "1234");
+        paymentService.refund("BK-20250915-0");
         System.out.println("booking status: " + booking.getStatus());
         System.out.println("booking payment status: " + booking.getPayment().getStatus());
         System.out.println();

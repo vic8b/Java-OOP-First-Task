@@ -29,6 +29,8 @@ public class HappyHoursPricing implements PricingPolicy {
         return Money.of(price);
     }
 
+    //simplified logic:
+    //happy hours are calculated only based on the booking start day
     private int happyHoursDuration(Booking booking) {
         FFDateTime start = booking.getStart();
         FFDateTime end = booking.getEnd();

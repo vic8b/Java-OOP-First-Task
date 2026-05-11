@@ -169,7 +169,7 @@ public class Cli {
                 }
                 case BOOKINGS_BY_RESOURCE -> {
                     ResourceType resourceType = reader.chooseResourceType();
-                    printListOfBookingsByResource(resourceType.getaClass());
+                    printListOfBookingsByResource(resourceType.getResourceClass());
                 }
                 case BOOKINGS_BY_STATUS -> {
                     BookingStatus bookingStatusFromUser = reader.getBookingStatusFromUser();
@@ -321,17 +321,9 @@ public class Cli {
             return;
         }
 
-        printer.printLine("Enter last 4 digits (if payment by Wallet, leave blank):");
-        String last4 = reader.getStringFromUser();
-
         try {
-            if (last4.isEmpty()) {
-                paymentService.refund(booking.getId());
-                printer.printLine("Payment refunded");
-            } else {
-                paymentService.refund(booking.getId(), last4);
-                printer.printLine("Payment refunded");
-            }
+            paymentService.refund(booking.getId());
+            printer.printLine("Payment refunded");
         } catch (IllegalArgumentException | IllegalStateException e) {
             printer.printLine(e.getMessage());
         }

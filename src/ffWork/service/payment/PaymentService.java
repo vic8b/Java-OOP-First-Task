@@ -31,18 +31,6 @@ public class PaymentService {
         return walletPayment;
     }
 
-    public void refund(String bookingId, String cardLast4) {
-        Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Booking does not exist"));
-
-        if (booking.getStatus() != BookingStatus.CANCELLED) {
-            throw new IllegalStateException("Cancel booking first");
-        }
-
-        if (booking.getPayment() instanceof CardPayment cardPayment) {
-            cardPayment.refund();
-        }
-    }
-
     public void refund(String bookingId) {
         Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> new IllegalArgumentException("Booking does not exist"));
 
@@ -50,8 +38,22 @@ public class PaymentService {
             throw new IllegalStateException("Cancel booking first");
         }
 
-        if (booking.getPayment() instanceof WalletPayment walletPayment) {
-            walletPayment.refund();
+        Payment payment = booking.getPayment();
+
+        if (payment == null) {
+            throw new IllegalStateException("Booking has no payment");
         }
+
+        if (payment instanceof CardPayment cardPayment) {
+            cardPayment.refund();
+            return;
+        }
+
+        if (payment instanceof WalletPayment walletPayment) {
+            walletPayment.refund();
+            return;
+        }
+
+        throw new IllegalStateException("Unsupported payment type");
     }
 }

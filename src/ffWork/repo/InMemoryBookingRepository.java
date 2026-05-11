@@ -61,14 +61,14 @@ public class InMemoryBookingRepository implements BookingRepository {
 
     @Override
     public List<Booking> findByStatus(BookingStatus status) {
-        ArrayList<Booking> foundBoookings = new ArrayList<>();
+        ArrayList<Booking> foundBookings = new ArrayList<>();
 
         for (Booking booking : bookings) {
             if (booking.getStatus().equals(status)) {
-                foundBoookings.add(booking);
+                foundBookings.add(booking);
             }
         }
 
-        return foundBoookings;
+        return foundBookings;
     }
 }

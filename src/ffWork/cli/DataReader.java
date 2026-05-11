@@ -120,20 +120,20 @@ public class DataReader {
     }
 
     public Resource createDesk() {
-        printer.printLine("Enter desk name: ");
-        String name = getStringFromUser();
-        printer.printLine("Choose desk possibility:");
-        for (Desk.DeskType type : Desk.DeskType.values()) {
-            printer.printLine(String.valueOf(type));
+        while (true) {
+            printer.printLine("Enter desk name: ");
+            String name = getStringFromUser();
+            printer.printLine("Choose desk possibility:");
+            for (Desk.DeskType type : Desk.DeskType.values()) {
+                printer.printLine(String.valueOf(type));
+            }
+            try {
+                Desk.DeskType type = Desk.DeskType.valueOf(getStringFromUser().toUpperCase());
+                return new Desk(name, type);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid possibility input");
+            }
         }
-        try {
-            Desk.DeskType type = Desk.DeskType.valueOf(getStringFromUser().toUpperCase());
-            return new Desk(name, type);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Invalid possibility input");
-        }
-
-        return null;
     }
 
     public Resource createDevice() {

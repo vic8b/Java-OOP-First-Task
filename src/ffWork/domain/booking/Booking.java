@@ -17,6 +17,10 @@ public class Booking {
     private Payment payment;
 
     public Booking(String id, User user, Resource resource, FFDateTime start, FFDateTime end, Money calculatedPrice) {
+        if (end.compareTo(start) <= 0) {
+            throw new IllegalArgumentException("start must be prior to end");
+        }
+
         this.id = id;
         this.user = user;
         this.resource = resource;
@@ -24,10 +28,6 @@ public class Booking {
         this.end = end;
         this.status = BookingStatus.PENDING;
         this.calculatedPrice = calculatedPrice;
-
-        if (end.compareTo(start) <= 0) {
-            throw new IllegalArgumentException("start must be prior to end");
-        }
     }
 
     public void confirm() {

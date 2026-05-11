@@ -35,29 +35,9 @@ public class BookingService {
         String id = "BK-<" + start.getDate() + ">-<" + counter + ">";
 
         List<Booking> bookingListByResource = bookingRepository.findByResource(resource);
-        int overlappingBookings = 0;
 
-        if (!bookingListByResource.isEmpty()) {
-            for (Booking booking : bookingListByResource) {
-                if ((resource instanceof Room) || (resource instanceof Desk)) {
-                    if (isPendingOrConfirmed(booking)) {
-                        if (isOverlapping(start, end, booking)) {
-                            throw new IllegalArgumentException("Resource not available (bookings cannot overlap)");
-                        }
-                    }
-                }
-                if (resource instanceof Device device) {
-                    if (isNotCancelledAndCompleted(booking)) {
-                        if (isOverlapping(start, end, booking)) {
-                            overlappingBookings++;
-                        }
-                        if (overlappingBookings >= device.getQuantity()) {
-                            throw new IllegalArgumentException("Device is not available (fully booked)");
-                        }
-                    }
-                }
-            }
-        }
+        assertRoomOrDeskNotOverlapping(resource, start, end, bookingListByResource);
+        assertDeviceCapacity(resource, start, end, bookingListByResource);
 
         Booking newBooking = new Booking(id, user, resource, start, end, null);
         counter++;
@@ -112,11 +92,33 @@ public class BookingService {
         return bookingRepository.findByStatus(bookingStatus);
     }
 
-    private static boolean isNotCancelledAndCompleted(Booking booking) {
-        return booking.getStatus() != BookingStatus.CANCELLED && booking.getStatus() != BookingStatus.COMPLETED;
+    private void assertRoomOrDeskNotOverlapping(Resource resource, FFDateTime start, FFDateTime end, List<Booking> bookingListByResource) {
+        if ((resource instanceof Room) || (resource instanceof Desk)) {
+            for (Booking booking : bookingListByResource) {
+                if (isBookingActive(booking) && isOverlapping(start, end, booking)) {
+                    throw new IllegalArgumentException("Resource not available (bookings cannot overlap)");
+                }
+            }
+        }
     }
 
-    private static boolean isPendingOrConfirmed(Booking booking) {
+    private void assertDeviceCapacity(Resource resource, FFDateTime start, FFDateTime end, List<Booking> bookingListByResource) {
+        int overlappingBookings = 0;
+
+        if (resource instanceof Device device) {
+            for (Booking booking : bookingListByResource) {
+                if (isBookingActive(booking) && isOverlapping(start, end, booking)) {
+                    overlappingBookings++;
+                }
+            }
+
+            if (overlappingBookings >= device.getQuantity()) {
+                throw new IllegalArgumentException("Device is not available (fully booked)");
+            }
+        }
+    }
+
+    private static boolean isBookingActive(Booking booking) {
         return booking.getStatus() == BookingStatus.PENDING || booking.getStatus() == BookingStatus.CONFIRMED;
     }
 

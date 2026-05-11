@@ -5,13 +5,13 @@ public enum ResourceType {
     DESK(Desk.class),
     DEVICE(Device.class);
 
-    private final Class<? extends Resource> aClass;
+    private final Class<? extends Resource> resourceClass;
 
     ResourceType(Class<? extends Resource> aClass) {
-        this.aClass = aClass;
+        this.resourceClass = aClass;
     }
 
-    public Class<? extends Resource> getaClass() {
-        return aClass;
+    public Class<? extends Resource> getResourceClass() {
+        return resourceClass;
     }
 }
